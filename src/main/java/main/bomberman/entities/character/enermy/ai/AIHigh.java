@@ -2,13 +2,13 @@ package main.bomberman.entities.character.enermy.ai;
 
 import main.bomberman.board.BoardGame;
 import main.bomberman.entities.character.Bomber;
-import main.bomberman.entities.character.enermy.Enermy;
+import main.bomberman.entities.character.enermy.Enemy;
 
 import java.util.Stack;
 
 public class AIHigh extends AI{
     private Bomber bomber;
-    private Enermy myseft;
+    private Enemy myseft;
     private int[][] map;
     private boolean find = false;
     private int n = 15, m = 23;
@@ -20,7 +20,7 @@ public class AIHigh extends AI{
 
     private Stack<Point> way = new Stack<>();
 
-    public AIHigh(Bomber b, Enermy e){
+    public AIHigh(Bomber b, Enemy e){
         this.bomber = b;
         this.myseft = e;
     }
@@ -93,18 +93,34 @@ public class AIHigh extends AI{
     public void creatWay(){
         isThinking = true;
         resetProperties();
-        System.out.println("thinking");
+        //System.out.println("thinking");
 
-        search(posY, posX);
+        if(posX >= desX){
+            if(posY >= desY){
+                searchTopLeft(posY, posX);
+            }
+            else {
+                searchTopRight(posY, posX);
+            }
+        }
+        else {
+            if(posY >= desY){
+                searchBottomLeft(posY, posX);
+            }
+            else {
+                searchBottomRight(posY, posX);
+            }
+        }
+
         if (!find){
-            System.out.println("can't find");
+            //System.out.println("can't find");
             canSlove = false;
         }
         else{
             canSlove = true;
-            System.out.println("Find a way!");
+            //System.out.println("Find a way!");
         }
-        System.out.println("Solve Completed!");
+        //System.out.println("Solve Completed!");
         isThinking = false;
     }
 
@@ -131,7 +147,7 @@ public class AIHigh extends AI{
 
     }
 
-    public void search(int i, int j){
+    public void searchTopLeft(int i, int j){
         if(i >= 0 && j >= 0 && i < n && j < m && !find && map[i][j] != 0 && map[i][j] != 5){
             map[i][j] = 5;
             way.push(new Point(j, i));
@@ -139,10 +155,67 @@ public class AIHigh extends AI{
                 find = true;
             }
             else{
-                search(i+1, j);
-                search(i, j+1);
-                search(i-1, j);
-                search(i, j-1);
+                searchTopLeft(i-1, j);
+                searchTopLeft(i, j-1);
+                searchTopLeft(i, j+1);
+                searchTopLeft(i+1, j);
+            }
+            if(!find)
+                way.pop();
+            map[i][j] = 1;
+        }
+    }
+
+    public void searchTopRight(int i, int j){
+        if(i >= 0 && j >= 0 && i < n && j < m && !find && map[i][j] != 0 && map[i][j] != 5){
+            map[i][j] = 5;
+            way.push(new Point(j, i));
+            if(i == desY && j == desX){
+                find = true;
+            }
+            else{
+                searchTopRight(i+1, j);
+                searchTopRight(i, j-1);
+                searchTopRight(i, j+1);
+                searchTopRight(i-1, j);
+            }
+            if(!find)
+                way.pop();
+            map[i][j] = 1;
+        }
+    }
+
+    public void searchBottomLeft(int i, int j){
+        if(i >= 0 && j >= 0 && i < n && j < m && !find && map[i][j] != 0 && map[i][j] != 5){
+            map[i][j] = 5;
+            way.push(new Point(j, i));
+            if(i == desY && j == desX){
+                find = true;
+            }
+            else{
+                searchBottomLeft(i-1, j);
+                searchBottomLeft(i, j+1);
+                searchBottomLeft(i, j-1);
+                searchBottomLeft(i+1, j);
+            }
+            if(!find)
+                way.pop();
+            map[i][j] = 1;
+        }
+    }
+
+    public void searchBottomRight(int i, int j){
+        if(i >= 0 && j >= 0 && i < n && j < m && !find && map[i][j] != 0 && map[i][j] != 5){
+            map[i][j] = 5;
+            way.push(new Point(j, i));
+            if(i == desY && j == desX){
+                find = true;
+            }
+            else{
+                searchBottomRight(i+1, j);
+                searchBottomRight(i, j+1);
+                searchBottomRight(i, j-1);
+                searchBottomRight(i-1, j);
             }
             if(!find)
                 way.pop();

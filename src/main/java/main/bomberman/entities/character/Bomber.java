@@ -22,6 +22,7 @@ public class Bomber extends AnimatedCharacter {
         setScale(3);
         setFrame("sprites\\player_down_", "sprites\\player_left_",
                 "sprites\\player_right_", "sprites\\player_up_", 3);
+        setAnimateDead("sprites\\player_dead", 3);
         setPosition(48, 48);
     }
 
@@ -41,13 +42,14 @@ public class Bomber extends AnimatedCharacter {
             setStatusMove("RIGHT");
         }
         if(numberBomb > listBomb.size() && input.placeBomb() && timeToPlaceNextBomb < 0){
-            listBomb.add(new  Bomb(((positionX + width / 2)/width)*width, ((positionY + height / 2)/height)*height, powerFlames));
+            listBomb.add(new  Bomb(this, powerFlames));
             timeToPlaceNextBomb = 20;
         }
     }
 
     @Override
     public void update(double time){
+        readInput();
         timeToPlaceNextBomb--;
 
         super.update(time);
@@ -85,6 +87,14 @@ public class Bomber extends AnimatedCharacter {
             if(!brick.isDestroyed()){
                 return false;
             }
+            else if(brick.isPortal()){
+                if( BoardGame.getListEnemy().size() == 0) {
+                    System.out.println("next level");
+                    BoardGame.nextLevel();
+                    return true;
+                }
+                else return false;
+            }
             else if(brick.hasItem()){
                 brick.setCollectedItem(powerUp(brick.getItem().getProperties()));
             }
@@ -93,6 +103,14 @@ public class Bomber extends AnimatedCharacter {
             brick = (Brick) tren_phai;
             if(!brick.isDestroyed()){
                 return false;
+            }
+            else if(brick.isPortal()){
+                if( BoardGame.getListEnemy().size() == 0) {
+                    System.out.println("next level");
+                    BoardGame.nextLevel();
+                    return true;
+                }
+                else return false;
             }
             else if(brick.hasItem()){
                 brick.setCollectedItem(powerUp(brick.getItem().getProperties()));
@@ -103,6 +121,14 @@ public class Bomber extends AnimatedCharacter {
             if(!brick.isDestroyed()){
                 return false;
             }
+            else if(brick.isPortal()){
+                if( BoardGame.getListEnemy().size() == 0) {
+                    System.out.println("next level");
+                    BoardGame.nextLevel();
+                    return true;
+                }
+                else return false;
+            }
             else if(brick.hasItem()){
                 brick.setCollectedItem(powerUp(brick.getItem().getProperties()));
             }
@@ -111,6 +137,14 @@ public class Bomber extends AnimatedCharacter {
             brick = (Brick) duoi_phai;
             if(!brick.isDestroyed()){
                 return false;
+            }
+            else if(brick.isPortal()){
+                if( BoardGame.getListEnemy().size() == 0) {
+                    System.out.println("next level");
+                    BoardGame.nextLevel();
+                    return true;
+                }
+                else return false;
             }
             else if(brick.hasItem()){
                 brick.setCollectedItem(powerUp(brick.getItem().getProperties()));
@@ -138,4 +172,17 @@ public class Bomber extends AnimatedCharacter {
         }
     }
 
+    public int getNumberBomb(){
+        return numberBomb;
+    }
+
+    public int getPowerFlames(){
+        return powerFlames;
+    }
+
+    @Override
+    public void kill(){
+        BoardGame.setGameOver(true);
+        alive = false;
+    }
 }

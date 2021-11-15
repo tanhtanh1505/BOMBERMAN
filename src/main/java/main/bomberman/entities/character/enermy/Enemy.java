@@ -1,14 +1,16 @@
 package main.bomberman.entities.character.enermy;
 
+import main.bomberman.entities.character.Bomber;
 import main.bomberman.entities.character.enermy.ai.AI;
 import main.bomberman.graphics.AnimatedCharacter;
 
-abstract public class Enermy extends AnimatedCharacter {
+abstract public class Enemy extends AnimatedCharacter {
     protected AI brain;
     protected int MAX_STEPS = 50;
     protected int steps = 0;
+    protected Bomber bomber;
 
-    public Enermy(){
+    public Enemy(){
         setStatusMove("LEFT");
         speed = 80;
         duration = 0.1;
@@ -16,6 +18,13 @@ abstract public class Enermy extends AnimatedCharacter {
 
     @Override
     public void update(double time){
+        if(!alive)
+            return;
+
+        if(this.intersects(bomber)){
+            bomber.kill();
+        }
+
         if(steps >= MAX_STEPS){
             calcMove();
         }
@@ -34,5 +43,6 @@ abstract public class Enermy extends AnimatedCharacter {
         steps = 0;
         setStatusMove(brain.calcDirection());
     }
+
 
 }

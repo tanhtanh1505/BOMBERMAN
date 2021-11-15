@@ -1,10 +1,9 @@
 package main.bomberman.entities.bomb;
 
 import javafx.scene.canvas.GraphicsContext;
+import main.bomberman.entities.character.Bomber;
 import main.bomberman.graphics.AnimatedImage;
 import main.bomberman.graphics.Sprite;
-
-import java.net.MalformedURLException;
 
 public class Bomb extends AnimatedImage {
     private boolean isExplored = false;
@@ -12,16 +11,16 @@ public class Bomb extends AnimatedImage {
     private Flame flame;
     private boolean isDestroyed = false;
     private int powerFlames = 0;
+    private Bomber bomber;
 
-    public Bomb(int x, int y, int length){
-        try {
-            duration = 0.2;
-            setPosition(x, y);
-            powerFlames = length;
-            setFrame(Sprite.getListImage("sprites\\bomb_", 3, 3));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+    public Bomb(Bomber bomber, int length){
+        this.bomber = bomber;
+        duration = 0.2;
+        int x = ((bomber.getPositionX() + bomber.getWidth() / 2)/bomber.getWidth())*bomber.getWidth();
+        int y = ((bomber.getPositionY() + bomber.getHeight() / 2)/ bomber.getHeight())* bomber.getHeight();
+        setPosition(x, y);
+        powerFlames = length;
+        setFrame(Sprite.getListImage("sprites\\bomb_", 3, 3));
     }
 
     public void update(){
@@ -30,7 +29,7 @@ public class Bomb extends AnimatedImage {
         else {
             if(!isExplored) {
                 isExplored = true;
-                flame = new Flame(positionX, positionY, powerFlames);
+                flame = new Flame(bomber, positionX, positionY, powerFlames);
             }
             else {
 

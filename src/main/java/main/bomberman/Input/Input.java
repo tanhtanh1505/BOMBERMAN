@@ -2,6 +2,7 @@ package main.bomberman.Input;
 
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import main.bomberman.board.BoardGame;
 
 import java.util.ArrayList;
 import java.util.Stack;
@@ -20,9 +21,10 @@ public class Input {
                     @Override
                     public void handle(javafx.scene.input.KeyEvent e) {
                         String code = e.getCode().toString();
-//                        if(!input.contains(code))
-//                            input.add(code);
-                        if(!listInput.contains(code)){
+                        if(code.equalsIgnoreCase("P")){
+                            BoardGame.setPause(!BoardGame.isPaused());
+                        }
+                        else if(!listInput.contains(code)){
                             listInput.push(code);
                         }
                     }
@@ -66,4 +68,5 @@ public class Input {
             return false;
         return listInput.peek().equals("SPACE"); //input.contains("SPACE") || input.contains("ENTER");
     }
+
 }

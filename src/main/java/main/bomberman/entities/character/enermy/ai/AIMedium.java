@@ -1,14 +1,14 @@
 package main.bomberman.entities.character.enermy.ai;
 
 import main.bomberman.entities.character.Bomber;
-import main.bomberman.entities.character.enermy.Enermy;
+import main.bomberman.entities.character.enermy.Enemy;
 
 public class AIMedium extends AI{
     private Bomber bomber;
-    private Enermy myseft;
+    private Enemy myseft;
 
     private final int MAX_RANGE = 250;
-    public AIMedium(Enermy e, Bomber b){
+    public AIMedium(Enemy e, Bomber b){
         myseft = e;
         bomber = b;
     }

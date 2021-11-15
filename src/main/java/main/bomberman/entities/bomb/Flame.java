@@ -4,11 +4,14 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import main.bomberman.board.BoardGame;
 import main.bomberman.entities.Entity;
+import main.bomberman.entities.character.Bomber;
+import main.bomberman.entities.character.enermy.Enemy;
 import main.bomberman.entities.tile.Brick;
 import main.bomberman.graphics.AnimatedImage;
+import main.bomberman.graphics.Properties;
 import main.bomberman.graphics.Sprite;
 
-import java.net.MalformedURLException;
+import java.util.ArrayList;
 
 public class Flame extends AnimatedImage {
     private Image[] center;
@@ -23,16 +26,19 @@ public class Flame extends AnimatedImage {
     private int showed = 20;//hien trong 20 ms
     private int length = 0;
 
-    public Flame(int x, int y, int length){
+    //private List<Message>
+
+    public Flame(Bomber bomber, int x, int y, int length){
         duration = 0.2;
         positionX = x;
         positionY = y;
         this.length = length;
         loadFrame();
-        calcDestroyableBrick();
+        calcDestroy(bomber);
     }
 
-    private void calcDestroyableBrick(){
+    private void calcDestroy(Bomber bomber){
+        ArrayList<Enemy> listE = BoardGame.getListEnemy();
         int gocTren = (positionY - height*(length + 1))/height;
         int gocTrai = (positionX - width*(length + 1))/width;
         for(int i = gocTren; i < gocTren + 3 + length*2; i++){
@@ -40,11 +46,31 @@ public class Flame extends AnimatedImage {
             if(e instanceof Brick){
                 ((Brick) e).setDestroyed(true);
             }
+            for(Enemy enemy : listE){
+                if((enemy.getPositionY() + height/2)/height == i && (enemy.getPositionX()+width/2)/width == gocTrai + 1 + length/2){
+                    BoardGame.addMessage("+100", enemy.getPositionX(), enemy.getPositionY());
+                    Properties.addScore();
+                    enemy.kill();
+                }
+            }
+            if(bomber.getPositionY()/height == i && bomber.getPositionX()/width == gocTrai + 1 + length/2){
+                bomber.kill();
+            }
         }
         for(int i = gocTrai; i < gocTrai + 3 + length*2; i++){
             Entity e = BoardGame.getEntityAt(i, positionY/height);
             if(e instanceof Brick){
                 ((Brick) e).setDestroyed(true);
+            }
+            for(Enemy enemy : listE){
+                if((enemy.getPositionX()+width/2)/width == i && (enemy.getPositionY()+height/2)/height == gocTren + 1 + length/2){
+                    BoardGame.addMessage("+100", enemy.getPositionX(), enemy.getPositionY());
+                    Properties.addScore();
+                    enemy.kill();
+                }
+            }
+            if(bomber.getPositionX()/width == i && bomber.getPositionY()/height == gocTren + 1 + length/2){
+                bomber.kill();
             }
         }
     }
@@ -78,24 +104,21 @@ public class Flame extends AnimatedImage {
     }
 
     private void loadFrame() {
-        try {
-            center = Sprite.getListImage("sprites\\bomb_exploded", 3, 3);
-            toplast = Sprite.getListImage("sprites\\explosion_vertical_top_last", 3, 3);
-            bottomlast = Sprite.getListImage("sprites\\explosion_vertical_down_last", 3, 3);
-            leftlast = Sprite.getListImage("sprites\\explosion_horizontal_left_last", 3, 3);
-            rightlast = Sprite.getListImage("sprites\\explosion_horizontal_right_last", 3, 3);
+        center = Sprite.getListImage("sprites\\bomb_exploded", 3, 3);
+        toplast = Sprite.getListImage("sprites\\explosion_vertical_top_last", 3, 3);
+        bottomlast = Sprite.getListImage("sprites\\explosion_vertical_down_last", 3, 3);
+        leftlast = Sprite.getListImage("sprites\\explosion_horizontal_left_last", 3, 3);
+        rightlast = Sprite.getListImage("sprites\\explosion_horizontal_right_last", 3, 3);
 
-            if(length > 0) {
-                vertical = new Image[length][];
-                horizontal = new Image[length][];
-                for (int i = 0; i < length; i++) {
-                    vertical[i] = Sprite.getListImage("sprites\\explosion_vertical", 3, 3);
-                    horizontal[i] = Sprite.getListImage("sprites\\explosion_horizontal", 3, 3);
-                }
-
+        if(length > 0) {
+            vertical = new Image[length][];
+            horizontal = new Image[length][];
+            for (int i = 0; i < length; i++) {
+                vertical[i] = Sprite.getListImage("sprites\\explosion_vertical", 3, 3);
+                horizontal[i] = Sprite.getListImage("sprites\\explosion_horizontal", 3, 3);
             }
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
+
         }
+
     }
 }

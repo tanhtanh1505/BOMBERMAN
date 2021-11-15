@@ -6,8 +6,6 @@ import javafx.scene.image.Image;
 import main.bomberman.graphics.GetImage;
 import main.bomberman.graphics.Sprite;
 
-import java.net.MalformedURLException;
-
 
 public abstract class Entity {
     protected int positionX;
@@ -44,14 +42,10 @@ public abstract class Entity {
     }
 
     public void setImg(String name){
-        try {
-            Image im = new Image(GetImage.get(name));
-            img = Sprite.readImage(im, 0, 0, (int)im.getWidth(), (int)im.getHeight(), scale);
-            width = (int)im.getWidth()*scale;
-            height = (int)im.getHeight()*scale;
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+        Image im = new Image(GetImage.get(name));
+        img = Sprite.readImage(im, 0, 0, (int)im.getWidth(), (int)im.getHeight(), scale);
+        width = (int)im.getWidth()*scale;
+        height = (int)im.getHeight()*scale;
     }
 
     public void setScale(int scale){

@@ -7,6 +7,8 @@ public class Brick extends AnimatedImage {
     private boolean isDestroyed;
     private boolean hasItem = false;
     private boolean collectedItem = false;
+    private boolean isPortal = false;
+    private boolean showPortal = false;
     private Item item;
 
     public Brick(){
@@ -19,6 +21,9 @@ public class Brick extends AnimatedImage {
         setScale(3);
         isDestroyed = false;
         hasItem = true;
+        if(item.equals("portal")){
+            isPortal = true;
+        }
         setImg("sprites\\brick.png");
         this.item = new Item(item);
     }
@@ -49,10 +54,12 @@ public class Brick extends AnimatedImage {
     }
 
     public boolean hasItem(){
-        return hasItem && !collectedItem;
+        return hasItem && !collectedItem && !isPortal;
     }
 
     public void setCollectedItem(boolean collectedItem){
+        if(isPortal)
+            return;
         this.collectedItem = collectedItem;
     }
 
@@ -62,11 +69,15 @@ public class Brick extends AnimatedImage {
 
     @Override
     public void render(GraphicsContext gc){
-        if(isDestroyed && hasItem()){
+        if(isDestroyed && (hasItem && !collectedItem || isPortal)){
             item.render(gc);
         }
         else {
             super.render(gc);
         }
+    }
+
+    public boolean isPortal(){
+        return isPortal;
     }
 }

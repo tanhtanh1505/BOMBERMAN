@@ -2,28 +2,74 @@ package main.bomberman.board;
 
 import javafx.scene.canvas.GraphicsContext;
 import main.bomberman.entities.Entity;
+import main.bomberman.entities.Message;
+import main.bomberman.entities.character.Bomber;
+import main.bomberman.entities.character.enermy.Enemy;
 import main.bomberman.entities.tile.Brick;
 import main.bomberman.entities.tile.Wall;
+import main.bomberman.graphics.Properties;
 import main.bomberman.level.LoadLevel;
 
 import java.util.ArrayList;
 
 public class BoardGame {
-    private static ArrayList<Entity> map = LoadLevel.getMap(1);
-    private static int width = LoadLevel.get_width();
-    private static int height = LoadLevel.get_height();
+    private static int width;
+    private static int height;
+    private static ArrayList<Entity> map = new ArrayList<>();
+    private static ArrayList<Enemy> list_enemy;
+    private static Bomber player;
+    private static ArrayList<Message> listMessage = new ArrayList<>();
+    private static Properties properties;
+    private static boolean paused = false;
+    private static boolean gameOver = false;
 
     public BoardGame(){
+        player = new Bomber();
+        LoadLevel.load(1, player);
+        width = LoadLevel.get_width();
+        height = LoadLevel.get_height();
+        map = LoadLevel.getMap();
+        list_enemy = LoadLevel.getListEnemy();
+        properties = new Properties(player);
+    }
 
+    public void update(double elapsedTime){
+        if(paused){
+            return;
+        }
+
+        player.update(elapsedTime);
+
+        for(int i = 0; i < list_enemy.size(); i++){
+            list_enemy.get(i).update(elapsedTime);
+            if(list_enemy.get(i).isKilled()){
+                list_enemy.remove(i);
+                i--;
+            }
+        }
     }
 
     public void render(GraphicsContext gc, double time){
 
-    }
-
-    public void renderMap(GraphicsContext gc){
         for(Entity e : map) {
             e.render(gc);
+        }
+
+        player.render(gc, time);
+
+        for(Enemy enemy : list_enemy){
+            enemy.render(gc, time);
+        }
+
+        for(Message m : listMessage){
+            m.render(gc);
+        }
+
+        properties.render(gc);
+
+        if(gameOver){
+            paused = true;
+            properties.renderGameOver(gc);
         }
     }
 
@@ -44,10 +90,43 @@ public class BoardGame {
                         res[i][j] = 1;
                     else res[i][j] = 0;
                 }
-                else res[i][j] = (LoadLevel.get_map()[i][j] == ' ')?(1):(0);
+                else res[i][j] = (LoadLevel.get_map()[i][j] == '#')?(0):(1);
             }
         }
 
         return res;
+    }
+
+    public static ArrayList<Enemy> getListEnemy(){
+        return list_enemy;
+    }
+
+    public static void addMessage(String content, int x, int y){
+        listMessage.add(new Message(content, x, y));
+    }
+
+    public static void setPause(boolean ok){
+        paused = ok;
+    }
+
+    public static boolean isPaused(){
+        return paused;
+    }
+
+    public static void nextLevel(){
+        map.clear();
+        list_enemy.clear();
+
+        player = new Bomber();
+        LoadLevel.load(LoadLevel.get_level() + 1, player);
+        width = LoadLevel.get_width();
+        height = LoadLevel.get_height();
+        map = LoadLevel.getMap();
+        list_enemy = LoadLevel.getListEnemy();
+        properties = new Properties(player);
+    }
+
+    public static void setGameOver(boolean ok){
+        gameOver = ok;
     }
 }

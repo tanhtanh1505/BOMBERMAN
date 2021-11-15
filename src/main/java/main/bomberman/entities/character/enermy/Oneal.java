@@ -1,42 +1,15 @@
 package main.bomberman.entities.character.enermy;
 
 import main.bomberman.entities.character.Bomber;
-import main.bomberman.entities.character.enermy.ai.AIHigh;
+import main.bomberman.entities.character.enermy.ai.AIMedium;
 
-import java.util.Random;
-
-public class Oneal extends Enermy{
-    private int timeThinking = 200;
+public class Oneal extends Enemy {
     public Oneal(Bomber b){
-        brain = new AIHigh(b, this);
+        bomber = b;
+        brain = new AIMedium(this, b);
 
         setFrame("sprites\\oneal_left", "sprites\\oneal_left",
                 "sprites\\oneal_right", "sprites\\oneal_right", 3);
-
-        setPosition(864, 48);
-        speed = 2;
-        //brain.calcDirection();
-    }
-
-    @Override
-    public void update(double time){
-        if(!((AIHigh)brain).inTheDes()) {
-            if (((AIHigh) brain).checkPos(positionX, positionY)) {
-                setStatusMove(((AIHigh) brain).getNextDir());
-            } else {
-                positionX += velocityX;
-                positionY += velocityY;
-            }
-        }
-        else {
-            if(!((AIHigh)brain).isThinking())
-                ((AIHigh)brain).creatWay();
-            else {
-                if(!((AIHigh)brain).canSolve()){
-                    Random random = new Random();
-                    setStatusMove(random.nextInt(4));
-                }
-            }
-        }
+        setAnimateDead("sprites\\oneal_dead", 1);
     }
 }

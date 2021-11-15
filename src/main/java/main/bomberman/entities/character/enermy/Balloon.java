@@ -3,14 +3,14 @@ package main.bomberman.entities.character.enermy;
 import main.bomberman.entities.character.Bomber;
 import main.bomberman.entities.character.enermy.ai.AILow;
 
-public class Balloon extends Enermy {
+public class Balloon extends Enemy {
     public Balloon(Bomber b){
+        bomber = b;
         brain = new AILow();
 
         setFrame("sprites\\balloom_left", "sprites\\balloom_left",
                 "sprites\\balloom_right", "sprites\\balloom_right", 3);
-
-        setPosition(576, 48);
+        setAnimateDead("sprites\\balloom_dead", 1);
     }
 
 }

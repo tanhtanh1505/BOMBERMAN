@@ -20,6 +20,9 @@ public class Item extends Entity {
             setImg("sprites\\powerup_bombs.png");
             bomb = 1;
         }
+        else if(name.equals("portal")){
+            setImg("sprites\\portal.png");
+        }
     }
 
     public double getSpeed(){

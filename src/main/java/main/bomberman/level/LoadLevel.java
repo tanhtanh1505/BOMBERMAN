@@ -1,7 +1,9 @@
 package main.bomberman.level;
 
-import main.bomberman.entities.tile.Brick;
 import main.bomberman.entities.Entity;
+import main.bomberman.entities.character.Bomber;
+import main.bomberman.entities.character.enermy.*;
+import main.bomberman.entities.tile.Brick;
 import main.bomberman.entities.tile.Grass;
 import main.bomberman.entities.tile.Wall;
 
@@ -14,12 +16,13 @@ public class LoadLevel {
     private static char[][] _map;
 
     private static ArrayList<Entity> map = new ArrayList<>();
+    private static ArrayList<Enemy> listEnemy = new ArrayList<>();
 
     public LoadLevel(){
 
     }
 
-    public static void load(int level) {
+    public static void load(int level, Bomber bomber) {
         String path = ".\\res\\levels\\Level"+level+".txt";
         try{
             File file = new File(path);
@@ -40,9 +43,15 @@ public class LoadLevel {
                 System.out.println("");
             }
             reader.close();
+
+            setMap(bomber);
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public static int get_level(){
+        return _level;
     }
 
     public static char[][] get_map() {
@@ -57,10 +66,12 @@ public class LoadLevel {
         return _height;
     }
 
-    public static ArrayList<Entity> getMap(int lv){
-        load(lv);
+    private static void setMap(Bomber bomber){
         for (int i = 0; i < _height; i++) {
             for (int j = 0; j < _width; j++){
+                Grass grass = new Grass();
+                grass.setPosition(j*grass.getWidth(), i*grass.getHeight());
+
                 switch (_map[i][j]){
                     case '#':
                         Wall wall = new Wall();
@@ -87,14 +98,55 @@ public class LoadLevel {
                         bombItem.setPosition(j*bombItem.getWidth(), i*bombItem.getHeight());
                         map.add(bombItem);
                         break;
+                    case 'x':
+                        Brick portal = new Brick("portal");
+                        portal.setPosition(j*portal.getWidth(), i*portal.getHeight());
+                        map.add(portal);
+                        break;
+                    case '1':
+                        map.add(grass);
+                        Balloon balloon = new Balloon(bomber);
+                        balloon.setPosition(j*balloon.getWidth(), i*balloon.getHeight());
+                        listEnemy.add(balloon);
+                        break;
+                    case '2':
+                        map.add(grass);
+                        Oneal oneal = new Oneal(bomber);
+                        oneal.setPosition(j*oneal.getWidth(), i*oneal.getHeight());
+                        listEnemy.add(oneal);
+                        break;
+                    case '3':
+                        map.add(grass);
+                        Doll doll = new Doll(bomber);
+                        doll.setPosition(j*doll.getWidth(), i*doll.getHeight());
+                        listEnemy.add(doll);
+                        break;
+                    case '4':
+                        map.add(grass);
+                        Kondoria kondoria = new Kondoria(bomber);
+                        kondoria.setPosition(j*kondoria.getWidth(), i*kondoria.getHeight());
+                        listEnemy.add(kondoria);
+                        break;
+                    case '5':
+                        map.add(grass);
+                        Minvo minvo = new Minvo(bomber);
+                        minvo.setPosition(j*minvo.getWidth(), i*minvo.getHeight());
+                        listEnemy.add(minvo);
+                        break;
                     default:
-                        Grass grass = new Grass();
-                        grass.setPosition(j*grass.getWidth(), i*grass.getHeight());
                         map.add(grass);
                         break;
                 }
             }
         }
+    }
+
+
+    public static ArrayList<Entity> getMap(){
         return map;
+    }
+
+    public static ArrayList<Enemy> getListEnemy(){
+        return listEnemy;
     }
 }
