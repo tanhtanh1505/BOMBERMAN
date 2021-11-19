@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="720.0" prefWidth="1344.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.bomberman.gui.SelectCharacter">
+   <children>
+      <Button layoutX="390.0" layoutY="251.0" mnemonicParsing="false" onAction="#selectFirst" prefHeight="109.0" prefWidth="121.0" text="character 1" />
+      <Button layoutX="622.0" layoutY="251.0" mnemonicParsing="false" onAction="#selectSecond" prefHeight="109.0" prefWidth="121.0" text="character 2" />
+      <Button layoutX="849.0" layoutY="251.0" mnemonicParsing="false" onAction="#selectThird" prefHeight="109.0" prefWidth="121.0" text="character 3" />
+   </children>
+</AnchorPane>

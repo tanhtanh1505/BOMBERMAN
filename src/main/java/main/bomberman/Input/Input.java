@@ -4,11 +4,9 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import main.bomberman.board.BoardGame;
 
-import java.util.ArrayList;
 import java.util.Stack;
 
 public class Input {
-    private static ArrayList<String> input = new ArrayList<String>();
     private static Scene theScene;
     private static Stack<String> listInput = new Stack<>();
     public Input(){
@@ -16,13 +14,14 @@ public class Input {
 
     public static void setScene(Scene scene){
         theScene = scene;
+        listInput.clear();
         theScene.setOnKeyPressed(
                 new EventHandler<javafx.scene.input.KeyEvent>() {
                     @Override
                     public void handle(javafx.scene.input.KeyEvent e) {
                         String code = e.getCode().toString();
                         if(code.equalsIgnoreCase("P")){
-                            BoardGame.setPause(!BoardGame.isPaused());
+                            BoardGame.pause();
                         }
                         else if(!listInput.contains(code)){
                             listInput.push(code);
@@ -69,4 +68,9 @@ public class Input {
         return listInput.peek().equals("SPACE"); //input.contains("SPACE") || input.contains("ENTER");
     }
 
+    public static boolean quit(){
+        if(listInput.size() < 1)
+            return false;
+        return listInput.peek().equals("Q");
+    }
 }

@@ -1,5 +1,6 @@
 package main.bomberman.entities.character;
 
+import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import main.bomberman.Input.Input;
 import main.bomberman.board.BoardGame;
@@ -8,6 +9,8 @@ import main.bomberman.entities.bomb.Bomb;
 import main.bomberman.entities.tile.Brick;
 import main.bomberman.entities.tile.Wall;
 import main.bomberman.graphics.AnimatedCharacter;
+import main.bomberman.graphics.Sprite;
+import main.bomberman.sound.Sound;
 
 import java.util.ArrayList;
 
@@ -17,13 +20,17 @@ public class Bomber extends AnimatedCharacter {
     private int timeToPlaceNextBomb = 0;
     private int numberBomb = 2;
     private int powerFlames = 0;
+    private int selectCharacter = 1; //0: mac dinh
 
-    public Bomber() {
+    public Bomber(int select) {
         setScale(3);
-        setFrame("sprites\\player_down_", "sprites\\player_left_",
-                "sprites\\player_right_", "sprites\\player_up_", 3);
+        this.selectCharacter = select;
+        framesMove = Sprite.getListImage("sprites\\jetter" + selectCharacter +".png", 4, 3, scale);
+//        setFrame("sprites\\player_down_", "sprites\\player_left_",
+//        "sprites\\player_right_", "sprites\\player_up_", 3);
         setAnimateDead("sprites\\player_dead", 3);
-        setPosition(48, 48);
+        setPosition(44, 40);
+        alive = true;
     }
 
     public void readInput(){
@@ -71,10 +78,10 @@ public class Bomber extends AnimatedCharacter {
         x += width/3;
         y += height/3;
 
-        Entity tren_trai = BoardGame.getEntityAt((x - width/4)/width, y/height);
-        Entity tren_phai = BoardGame.getEntityAt((x + width/3)/width, y/height);
-        Entity duoi_trai = BoardGame.getEntityAt((x - width/4)/width, (y+ 2*height/3)/height);
-        Entity duoi_phai = BoardGame.getEntityAt((x + width/3)/width, (y+ 2*height/3)/height);
+        Entity tren_trai = BoardGame.getEntityAt((x - width/4)/width, (y + height/5)/height);
+        Entity tren_phai = BoardGame.getEntityAt((x + width/3)/width, (y + height/5)/height);
+        Entity duoi_trai = BoardGame.getEntityAt((x - width/4)/width, (y+ 8*height/10)/height);
+        Entity duoi_phai = BoardGame.getEntityAt((x + width/3)/width, (y+ 8*height/10)/height);
 
         if(tren_trai instanceof Wall || tren_phai instanceof Wall ||
                 duoi_trai instanceof Wall || duoi_phai instanceof Wall){
@@ -163,7 +170,17 @@ public class Bomber extends AnimatedCharacter {
     }
 
     public void render(GraphicsContext gc, double time){
-        super.render(gc, time);
+//        super.render(gc, time);
+
+        if (alive) {
+            if(isRunning) {
+                gc.drawImage(getFrame(time, framesMove[statusMove]), positionX, positionY, 44, 55);
+            }
+            else gc.drawImage(framesMove[statusMove][0], positionX, positionY, 44, 55);
+        } else if (lastTime < dead.length * 10) {
+            gc.drawImage(dead[lastTime / 10], positionX, positionY);
+            lastTime++;
+        }
 
         if(listBomb.size() > 0) {
             for (Bomb bomb : listBomb) {
@@ -181,8 +198,18 @@ public class Bomber extends AnimatedCharacter {
     }
 
     @Override
+    public Rectangle2D getBoundary() {
+        return new Rectangle2D(positionX + width/5, positionY + height/5, width/2, height/2);
+    }
+
+    @Override
     public void kill(){
+        Sound.playSound(Sound.bomberDie);
         BoardGame.setGameOver(true);
         alive = false;
+    }
+
+    public int getSelectCharacter(){
+        return selectCharacter;
     }
 }

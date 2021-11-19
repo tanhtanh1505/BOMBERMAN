@@ -1,6 +1,7 @@
 package main.bomberman.entities.tile;
 
 import main.bomberman.entities.Entity;
+import main.bomberman.sound.Sound;
 
 public class Item extends Entity {
     private double speed = 1.0;
@@ -38,6 +39,7 @@ public class Item extends Entity {
     }
 
     public double[] getProperties(){
+        Sound.playSound(Sound.itemCollected);
         return new double[]{speed, flames, bomb};
     }
 

@@ -8,6 +8,7 @@ import main.bomberman.entities.character.enermy.Enemy;
 import main.bomberman.entities.tile.Brick;
 import main.bomberman.entities.tile.Wall;
 import main.bomberman.graphics.Properties;
+import main.bomberman.gui.ScoreView;
 import main.bomberman.level.LoadLevel;
 
 import java.util.ArrayList;
@@ -16,21 +17,28 @@ public class BoardGame {
     private static int width;
     private static int height;
     private static ArrayList<Entity> map = new ArrayList<>();
-    private static ArrayList<Enemy> list_enemy;
+    private static ArrayList<Enemy> list_enemy = new ArrayList<>();
     private static Bomber player;
     private static ArrayList<Message> listMessage = new ArrayList<>();
     private static Properties properties;
-    private static boolean paused = false;
-    private static boolean gameOver = false;
+    private static boolean paused;
+    private static boolean gameOver;
+    private static int selectChar;
 
-    public BoardGame(){
-        player = new Bomber();
+    public BoardGame(int selectCharacter){
+        map.clear();
+        list_enemy.clear();
+
+        selectChar = selectCharacter;
+        player = new Bomber(selectCharacter);
         LoadLevel.load(1, player);
         width = LoadLevel.get_width();
         height = LoadLevel.get_height();
         map = LoadLevel.getMap();
         list_enemy = LoadLevel.getListEnemy();
         properties = new Properties(player);
+        paused = false;
+        gameOver = false;
     }
 
     public void update(double elapsedTime){
@@ -105,28 +113,39 @@ public class BoardGame {
         listMessage.add(new Message(content, x, y));
     }
 
-    public static void setPause(boolean ok){
-        paused = ok;
-    }
-
-    public static boolean isPaused(){
-        return paused;
+    public static void pause(){
+        paused = !paused;
     }
 
     public static void nextLevel(){
         map.clear();
         list_enemy.clear();
 
-        player = new Bomber();
+        player = new Bomber(selectChar);
         LoadLevel.load(LoadLevel.get_level() + 1, player);
         width = LoadLevel.get_width();
         height = LoadLevel.get_height();
         map = LoadLevel.getMap();
         list_enemy = LoadLevel.getListEnemy();
-        properties = new Properties(player);
+        properties.reset(player);
+        paused = false;
+        gameOver = false;
+    }
+
+    public static void addScore(int x, int y){
+        addMessage(properties.addScore(), x, y);
+    }
+
+    public static int getScore(){
+        return properties.getScore();
     }
 
     public static void setGameOver(boolean ok){
+        ScoreView.saveScore();
         gameOver = ok;
+    }
+
+    public static boolean endGame(){
+        return gameOver;
     }
 }

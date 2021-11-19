@@ -3,6 +3,7 @@ package main.bomberman.entities.character.enermy;
 import main.bomberman.entities.character.Bomber;
 import main.bomberman.entities.character.enermy.ai.AI;
 import main.bomberman.graphics.AnimatedCharacter;
+import main.bomberman.sound.Sound;
 
 abstract public class Enemy extends AnimatedCharacter {
     protected AI brain;
@@ -14,6 +15,7 @@ abstract public class Enemy extends AnimatedCharacter {
         setStatusMove("LEFT");
         speed = 80;
         duration = 0.1;
+        setScale(3);
     }
 
     @Override
@@ -44,5 +46,10 @@ abstract public class Enemy extends AnimatedCharacter {
         setStatusMove(brain.calcDirection());
     }
 
+    @Override
+    public void kill(){
+        alive = false;
+        Sound.playSound(Sound.enemyDie);
+    }
 
 }

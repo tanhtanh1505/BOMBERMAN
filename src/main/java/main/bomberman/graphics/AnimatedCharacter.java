@@ -117,9 +117,9 @@ abstract public class AnimatedCharacter extends Entity {
         y += height/3;
 
         Entity tren_trai = BoardGame.getEntityAt((x - width/4)/width, y/height);
-        Entity tren_phai = BoardGame.getEntityAt((x + width/3)/width, y/height);
+        Entity tren_phai = BoardGame.getEntityAt((x + width/2)/width, y/height);
         Entity duoi_trai = BoardGame.getEntityAt((x - width/4)/width, (y+ 2*height/3)/height);
-        Entity duoi_phai = BoardGame.getEntityAt((x + width/3)/width, (y+ 2*height/3)/height);
+        Entity duoi_phai = BoardGame.getEntityAt((x + width/2)/width, (y+ 2*height/3)/height);
         if(tren_trai instanceof Wall || tren_phai instanceof Wall ||
                 duoi_trai instanceof Wall || duoi_phai instanceof Wall){
             return false;

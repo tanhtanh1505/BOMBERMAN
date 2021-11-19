@@ -10,7 +10,10 @@ module main.bomberman {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires java.desktop;
+    requires java.sql;
 
     opens main.bomberman to javafx.fxml;
     exports main.bomberman;
+    exports main.bomberman.gui;
+    opens main.bomberman.gui to javafx.fxml;
 }

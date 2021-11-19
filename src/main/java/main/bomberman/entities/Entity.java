@@ -16,7 +16,7 @@ public abstract class Entity {
 
     protected Image img;
 
-    protected int scale = 3;
+    protected int scale = 1;
 
     public Entity() {
         positionX = 0;
@@ -48,6 +48,14 @@ public abstract class Entity {
         height = (int)im.getHeight()*scale;
     }
 
+    public void setImg(String name, int scale){
+        Image im = new Image(GetImage.get(name));
+        //img = Sprite.readImage(im, 0, 0, (int)im.getWidth(), (int)im.getHeight(), scale);
+        img = im;
+        width = (int)im.getWidth()*scale;
+        height = (int)im.getHeight()*scale;
+    }
+
     public void setScale(int scale){
         this.scale = scale;
     }
@@ -68,6 +76,10 @@ public abstract class Entity {
         return s.getBoundary().intersects( this.getBoundary() );
     }
 
+    public boolean intersects(int x, int y, int w, int h){
+        Rectangle2D rectangle2D = new Rectangle2D(x, y, w, h);
+        return this.getBoundary().intersects(rectangle2D);
+    }
     public void render(GraphicsContext gc) {
         gc.drawImage(img, positionX, positionY);
     }

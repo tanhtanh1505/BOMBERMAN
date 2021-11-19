@@ -2,6 +2,7 @@ package main.bomberman.entities.tile;
 
 import javafx.scene.canvas.GraphicsContext;
 import main.bomberman.graphics.AnimatedImage;
+import main.bomberman.graphics.Sprite;
 
 public class Brick extends AnimatedImage {
     private boolean isDestroyed;
@@ -10,29 +11,30 @@ public class Brick extends AnimatedImage {
     private boolean isPortal = false;
     private boolean showPortal = false;
     private Item item;
+    private int timeOff = 0;
 
     public Brick(){
-        setScale(3);
         isDestroyed = false;
-        setImg("sprites\\brick.png");
+        setImg("sprites\\brick.png", 1);
+        setFrame(Sprite.getListImage("sprites\\brick_exploded", 3, 1));
     }
 
     public Brick(String item){
-        setScale(3);
         isDestroyed = false;
         hasItem = true;
         if(item.equals("portal")){
             isPortal = true;
         }
-        setImg("sprites\\brick.png");
+        setImg("sprites\\brick.png", 1);
+        setFrame(Sprite.getListImage("sprites\\brick_exploded", 3, 1));
         this.item = new Item(item);
     }
 
     public Brick(int x, int y){
-        setScale(3);
         isDestroyed = false;
-        setImg("sprites\\brick.png");
+        setImg("sprites\\brick.png", 1);
         setPosition(x, y);
+        setFrame(Sprite.getListImage("sprites\\brick_exploded", 3, 1));
     }
 
     @Override
@@ -50,7 +52,7 @@ public class Brick extends AnimatedImage {
 
     public void setDestroyed(boolean destroyed){
         isDestroyed = destroyed;
-        setImg("sprites\\grass.png");
+        setImg("sprites\\grass.png", 1);
     }
 
     public boolean hasItem(){
@@ -69,7 +71,10 @@ public class Brick extends AnimatedImage {
 
     @Override
     public void render(GraphicsContext gc){
-        if(isDestroyed && (hasItem && !collectedItem || isPortal)){
+        if(isDestroyed && timeOff++ < frames.length * 5){
+            gc.drawImage(getFrame(timeOff/5), positionX, positionY);
+        }
+        else if(isDestroyed && (hasItem && !collectedItem || isPortal)){
             item.render(gc);
         }
         else {

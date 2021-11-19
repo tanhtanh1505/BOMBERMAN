@@ -30,7 +30,7 @@ public class AIMedium extends AI{
     public int calcDirection() {
         int x = getDistanceX();
         int y = getDistanceY();
-        if(random.nextInt(15)%5 != 0 && getDistance() <= MAX_RANGE){
+        if(/*random.nextInt(15)%5 != 0 &&*/ getDistance() <= MAX_RANGE){
             //0: down, 1: left, 2: right, 3: up
             int[] dir = new int[2];
 

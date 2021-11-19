@@ -52,6 +52,22 @@ public class Sprite {
         return imageArray;
     }
 
+    public static Image[] getListImage(String name, int number, int scale, boolean removeBgr){
+        Image[] imageArray = new Image[number];
+        if(removeBgr){
+            for (int i = 0; i < number; i++) {
+                imageArray[i] = new Image(Objects.requireNonNull(GetImage.get(name + i + ".png")));
+                imageArray[i] = removeBackground(imageArray[i], scale);
+            }
+        }
+        else {
+            for (int i = 0; i < number; i++) {
+                imageArray[i] = new Image(Objects.requireNonNull(GetImage.get(name + i + ".png")));
+            }
+        }
+        return imageArray;
+    }
+
     public static Image readImage(Image image, int row, int col, int W, int H, int scale){
         WritableImage outputImage = new WritableImage(W*scale, H*scale);
         PixelReader reader = image.getPixelReader();

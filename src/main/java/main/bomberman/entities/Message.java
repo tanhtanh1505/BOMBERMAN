@@ -1,6 +1,7 @@
 package main.bomberman.entities;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 public class Message {
@@ -19,6 +20,7 @@ public class Message {
     public void render(GraphicsContext gc){
         if(time-- > 0) {
             gc.setFont(font);
+            gc.setFill(Color.RED);
             gc.fillText(content, posX, posY);
         }
     }
