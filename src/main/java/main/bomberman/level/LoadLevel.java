@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class LoadLevel {
-    private static int _width, _height, _level = 0;
+    private static int _width, _height, _level = 1;
     private static char[][] _map;
 
     private static ArrayList<Entity> map = new ArrayList<>();

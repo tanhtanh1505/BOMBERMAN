@@ -3,6 +3,7 @@ package main.bomberman.entities.tile;
 import javafx.scene.canvas.GraphicsContext;
 import main.bomberman.graphics.AnimatedImage;
 import main.bomberman.graphics.Sprite;
+import main.bomberman.level.LoadLevel;
 
 public class Brick extends AnimatedImage {
     private boolean isDestroyed;
@@ -15,8 +16,8 @@ public class Brick extends AnimatedImage {
 
     public Brick(){
         isDestroyed = false;
-        setImg("sprites\\brick.png", 1);
-        setFrame(Sprite.getListImage("sprites\\brick_exploded", 3, 1));
+        setImg("sprites\\map" + (LoadLevel.get_level()%3+1) +"\\brick.png", 1);
+        setFrame(Sprite.getListImage("sprites\\brick_exploded", 3, 1, false));
     }
 
     public Brick(String item){
@@ -25,16 +26,16 @@ public class Brick extends AnimatedImage {
         if(item.equals("portal")){
             isPortal = true;
         }
-        setImg("sprites\\brick.png", 1);
-        setFrame(Sprite.getListImage("sprites\\brick_exploded", 3, 1));
+        setImg("sprites\\map" + (LoadLevel.get_level()%3+1) +"\\brick.png", 1);
+        setFrame(Sprite.getListImage("sprites\\brick_exploded", 3, 1, false));
         this.item = new Item(item);
     }
 
     public Brick(int x, int y){
         isDestroyed = false;
-        setImg("sprites\\brick.png", 1);
+        setImg("sprites\\map" + (LoadLevel.get_level()%3+1) +"\\brick.png", 1);
         setPosition(x, y);
-        setFrame(Sprite.getListImage("sprites\\brick_exploded", 3, 1));
+        setFrame(Sprite.getListImage("sprites\\brick_exploded", 3, 1, false));
     }
 
     @Override
@@ -52,7 +53,7 @@ public class Brick extends AnimatedImage {
 
     public void setDestroyed(boolean destroyed){
         isDestroyed = destroyed;
-        setImg("sprites\\grass.png", 1);
+        setImg("sprites\\map" + (LoadLevel.get_level()%3+1) + "\\grass.png", 1);
     }
 
     public boolean hasItem(){
