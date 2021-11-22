@@ -68,8 +68,7 @@ public class Properties{
         gc.fillText(":  " + bomber.getNumberBomb(), positionX + 110, 493);
         gc.fillText(":  " + (bomber.getPowerFlames()*2 + 3), positionX + 110, 550);
         gc.fillText(":  " + (int)bomber.getSpeed(), positionX + 110, 607);
-        if(!BoardGame.endGame() && count > 30) {
-            count++;
+        if(!BoardGame.endGame() && count++ > 30) {
             gc.setFont(new Font("Algerian", 20));
             gc.fillText("PRESS P TO PAUSE", positionX + 33, 675);
             if(count > 80)

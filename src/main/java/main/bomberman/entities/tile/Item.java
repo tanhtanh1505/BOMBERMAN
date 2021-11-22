@@ -1,9 +1,10 @@
 package main.bomberman.entities.tile;
 
-import main.bomberman.entities.Entity;
+import main.bomberman.graphics.AnimatedImage;
+import main.bomberman.graphics.Sprite;
 import main.bomberman.sound.Sound;
 
-public class Item extends Entity {
+public class Item extends AnimatedImage {
     private double speed = 1.0;
     private int flames = 0;
     private int bomb = 0;
@@ -23,7 +24,8 @@ public class Item extends Entity {
             bomb = 1;
         }
         else if(name.equals("portal")){
-            setImg("sprites\\portal.png");
+            setFrame(Sprite.getListImage("sprites\\portal", 4, 1));
+            //setImg("sprites\\portal.png");
         }
         else if(name.equals("spaceShip")){
             setImg("sprites\\spaceShip.png");

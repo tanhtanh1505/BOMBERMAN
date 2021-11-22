@@ -6,6 +6,8 @@ import main.bomberman.entities.character.enermy.ai.AIHigh;
 import java.util.Random;
 
 public class Kondoria extends Enemy{
+    private boolean isTheFirstStep = true;
+
     public Kondoria(Bomber b){
         bomber = b;
         brain = new AIHigh(b, this);

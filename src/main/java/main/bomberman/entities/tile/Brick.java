@@ -71,12 +71,17 @@ public class Brick extends AnimatedImage {
     }
 
     @Override
-    public void render(GraphicsContext gc){
+    public void render(GraphicsContext gc, double time){
         if(isDestroyed && timeOff++ < frames.length * 5){
             gc.drawImage(getFrame(timeOff/5), positionX, positionY);
         }
         else if(isDestroyed && (hasItem && !collectedItem || isPortal)){
-            item.render(gc);
+            super.render(gc);
+            if(isPortal) {
+                item.render(gc, time);
+            }
+            else
+                item.render(gc);
         }
         else {
             super.render(gc);

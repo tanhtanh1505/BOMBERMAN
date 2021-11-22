@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -78,5 +79,6 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
+      <Button layoutX="661.0" layoutY="493.0" mnemonicParsing="false" onAction="#introBtn" prefHeight="54.0" prefWidth="225.0" text="Intro" />
    </children>
 </AnchorPane>

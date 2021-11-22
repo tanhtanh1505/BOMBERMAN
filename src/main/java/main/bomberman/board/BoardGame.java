@@ -60,7 +60,11 @@ public class BoardGame {
     public void render(GraphicsContext gc, double time){
 
         for(Entity e : map) {
-            e.render(gc);
+            if(e instanceof Brick){
+                ((Brick) e).render(gc, time);
+            }
+            else
+                e.render(gc);
         }
 
         player.render(gc, time);

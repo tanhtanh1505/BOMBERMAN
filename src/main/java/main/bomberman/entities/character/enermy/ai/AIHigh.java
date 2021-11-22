@@ -23,6 +23,7 @@ public class AIHigh extends AI{
     public AIHigh(Bomber b, Enemy e){
         this.bomber = b;
         this.myseft = e;
+        find = false;
     }
 
     @Override
@@ -80,6 +81,7 @@ public class AIHigh extends AI{
 
     private void resetProperties(){
         find = false;
+        canSlove = false;
         map = BoardGame.getMap();
         posX = myseft.getPositionX()/myseft.getWidth();
         posY = myseft.getPositionY()/myseft.getHeight();

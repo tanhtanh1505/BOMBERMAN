@@ -16,6 +16,11 @@ import java.util.ResourceBundle;
 public class FirstViewController implements Initializable {
     public javafx.scene.control.Label btnMsic;
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        btnMsic.setText(Sound.getMode());
+    }
+
     public void start(ActionEvent event) {
         try {
             Sound.playSound(Sound.placeBomb);
@@ -51,8 +56,15 @@ public class FirstViewController implements Initializable {
         btnMsic.setText(Sound.getMode());
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        btnMsic.setText(Sound.getMode());
+    public void introBtn(ActionEvent event) {
+        try {
+            Sound.playSound(Sound.placeBomb);
+            Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(BombermanGame.class.getResource("intro-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            stage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

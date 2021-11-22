@@ -6,11 +6,14 @@ import main.bomberman.entities.character.enermy.ai.AI;
 import main.bomberman.graphics.AnimatedCharacter;
 import main.bomberman.sound.Sound;
 
+import java.util.Random;
+
 abstract public class Enemy extends AnimatedCharacter {
     protected AI brain;
     protected int MAX_STEPS = 50;
     protected int steps = 0;
     protected Bomber bomber;
+    protected Random random = new Random();
 
     public Enemy(){
         setStatusMove("LEFT");
@@ -25,6 +28,7 @@ abstract public class Enemy extends AnimatedCharacter {
             return;
 
         if(this.intersects(bomber)){
+            System.out.println(1);
             this.kill();
             bomber.kill();
         }

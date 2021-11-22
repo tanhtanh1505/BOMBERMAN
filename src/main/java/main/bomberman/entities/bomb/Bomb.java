@@ -33,9 +33,6 @@ public class Bomb extends AnimatedImage {
                 isExplored = true;
                 flame = new Flame(bomber, positionX, positionY, powerFlames);
             }
-            else {
-
-            }
         }
     }
 
