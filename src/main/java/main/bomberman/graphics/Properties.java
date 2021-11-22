@@ -7,6 +7,7 @@ import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import main.bomberman.board.BoardGame;
 import main.bomberman.entities.character.Bomber;
 import main.bomberman.level.LoadLevel;
 
@@ -67,7 +68,8 @@ public class Properties{
         gc.fillText(":  " + bomber.getNumberBomb(), positionX + 110, 493);
         gc.fillText(":  " + (bomber.getPowerFlames()*2 + 3), positionX + 110, 550);
         gc.fillText(":  " + (int)bomber.getSpeed(), positionX + 110, 607);
-        if(count++ > 30) {
+        if(!BoardGame.endGame() && count > 30) {
+            count++;
             gc.setFont(new Font("Algerian", 20));
             gc.fillText("PRESS P TO PAUSE", positionX + 33, 675);
             if(count > 80)
@@ -81,7 +83,14 @@ public class Properties{
     }
 
     public void renderGameOver(GraphicsContext gc){
-        gc.drawImage(gameOver, 327, 200);
+        gc.drawImage(gameOver, 327, 170);
+        if(count++ > 30) {
+            gc.setFont(new Font("Algerian", 40));
+            gc.setFill(Color.CYAN);
+            gc.fillText("PRESS Q TO QUIT", 420, 520);
+            if (count > 80)
+                count = 0;
+        }
     }
 
     public static String getName(){

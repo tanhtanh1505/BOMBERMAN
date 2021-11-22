@@ -6,7 +6,7 @@
 # # ############### # #
 # # #             # # #
 # # # ########### # # #
-#          x    # # # #
+#     !    x    # # # #
 # # # #  ######## # # #
 # # # #           # # #
 # # # ############# # #
@@ -40,5 +40,5 @@ Items:
 b - Bomb Item
 f - Flame Item
 s - Speed Item
-
+! - Space Ship Item
 Kí tự khác các kí tự trên - Grass

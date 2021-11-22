@@ -1,5 +1,6 @@
 package main.bomberman.entities.character.enermy;
 
+import main.bomberman.board.BoardGame;
 import main.bomberman.entities.character.Bomber;
 import main.bomberman.entities.character.enermy.ai.AI;
 import main.bomberman.graphics.AnimatedCharacter;
@@ -24,6 +25,7 @@ abstract public class Enemy extends AnimatedCharacter {
             return;
 
         if(this.intersects(bomber)){
+            this.kill();
             bomber.kill();
         }
 
@@ -50,6 +52,7 @@ abstract public class Enemy extends AnimatedCharacter {
     public void kill(){
         alive = false;
         Sound.playSound(Sound.enemyDie);
+        BoardGame.addScore(positionX, positionY);
     }
 
 }

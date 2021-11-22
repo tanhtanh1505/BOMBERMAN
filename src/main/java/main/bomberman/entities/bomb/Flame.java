@@ -66,7 +66,6 @@ public class Flame extends AnimatedImage {
             }
             for(Enemy enemy : listE){
                 if(enemy.intersects(positionX, i*height, width, height)){
-                    BoardGame.addScore(enemy.getPositionX(), enemy.getPositionY());
                     enemy.kill();
                 }
             }
@@ -87,7 +86,6 @@ public class Flame extends AnimatedImage {
             }
             for(Enemy enemy : listE){
                 if(enemy.intersects(positionX, i*height, width, height)){
-                    BoardGame.addScore(enemy.getPositionX(), enemy.getPositionY());
                     enemy.kill();
                 }
             }
@@ -108,7 +106,6 @@ public class Flame extends AnimatedImage {
             }
             for(Enemy enemy : listE){
                 if(enemy.intersects(i*width, positionY, width, height)){
-                    BoardGame.addScore(enemy.getPositionX(), enemy.getPositionY());
                     enemy.kill();
                 }
             }
@@ -129,7 +126,6 @@ public class Flame extends AnimatedImage {
             }
             for(Enemy enemy : listE){
                 if(enemy.intersects(i*width, positionY, width, height)){
-                    BoardGame.addScore(enemy.getPositionX(), enemy.getPositionY());
                     enemy.kill();
                 }
             }

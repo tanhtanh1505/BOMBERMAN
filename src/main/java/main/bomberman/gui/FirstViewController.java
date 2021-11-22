@@ -2,6 +2,7 @@ package main.bomberman.gui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -9,8 +10,10 @@ import main.bomberman.BombermanGame;
 import main.bomberman.sound.Sound;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class FirstViewController {
+public class FirstViewController implements Initializable {
     public javafx.scene.control.Label btnMsic;
 
     public void start(ActionEvent event) {
@@ -45,6 +48,11 @@ public class FirstViewController {
 
     public void sound(ActionEvent event) {
         Sound.mute();
+        btnMsic.setText(Sound.getMode());
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         btnMsic.setText(Sound.getMode());
     }
 }

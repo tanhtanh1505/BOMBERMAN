@@ -98,6 +98,11 @@ public class LoadLevel {
                         bombItem.setPosition(j*bombItem.getWidth(), i*bombItem.getHeight());
                         map.add(bombItem);
                         break;
+                    case '!':
+                        Brick spaceShip = new Brick("spaceShip");
+                        spaceShip.setPosition(j*spaceShip.getWidth(), i*spaceShip.getHeight());
+                        map.add(spaceShip);
+                        break;
                     case 'x':
                         Brick portal = new Brick("portal");
                         portal.setPosition(j*portal.getWidth(), i*portal.getHeight());

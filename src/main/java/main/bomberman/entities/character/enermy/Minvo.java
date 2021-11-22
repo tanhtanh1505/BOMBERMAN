@@ -23,6 +23,7 @@ public class Minvo extends Enemy{
             return;
 
         if(this.intersects(bomber)){
+            this.kill();
             bomber.kill();
         }
 

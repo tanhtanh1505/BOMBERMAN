@@ -21,6 +21,7 @@ public class Bomber extends AnimatedCharacter {
     private int numberBomb = 2;
     private int powerFlames = 0;
     private int selectCharacter = 1; //0: mac dinh
+    private int healNumSpaceShip = 0;
 
     public Bomber(int select) {
         setScale(3);
@@ -162,10 +163,14 @@ public class Bomber extends AnimatedCharacter {
     }
 
     public boolean powerUp(double[] properties){
-        //0: speed, 1:flame, 2:bomb
+        //0: speed, 1:flame, 2:bomb 3:spaceShip
         this.speed *= properties[0];
         this.powerFlames += properties[1];
         this.numberBomb += properties[2];
+        this.healNumSpaceShip = (int) properties[3];
+        if(healNumSpaceShip > 0){
+            framesMove = Sprite.getListImage("sprites\\specialMode" + selectCharacter + ".png", 4, 2, scale);
+        }
         return true;
     }
 
@@ -204,9 +209,15 @@ public class Bomber extends AnimatedCharacter {
 
     @Override
     public void kill(){
-        Sound.playSound(Sound.bomberDie);
-        BoardGame.setGameOver(true);
-        alive = false;
+        healNumSpaceShip--;
+        if(healNumSpaceShip == 0){
+            framesMove = Sprite.getListImage("sprites\\jetter" + selectCharacter +".png", 4, 3, scale);
+        }
+        else if(healNumSpaceShip < 0) {
+            Sound.playSound(Sound.bomberDie);
+            BoardGame.setGameOver(true);
+            alive = false;
+        }
     }
 
     public int getSelectCharacter(){

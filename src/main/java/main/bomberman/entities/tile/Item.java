@@ -7,6 +7,7 @@ public class Item extends Entity {
     private double speed = 1.0;
     private int flames = 0;
     private int bomb = 0;
+    private int spaceShip = 0;
 
     public Item(String name){
         if(name.equals("speed")) {
@@ -24,6 +25,10 @@ public class Item extends Entity {
         else if(name.equals("portal")){
             setImg("sprites\\portal.png");
         }
+        else if(name.equals("spaceShip")){
+            setImg("sprites\\spaceShip.png");
+            spaceShip = 3;
+        }
     }
 
     public double getSpeed(){
@@ -40,7 +45,7 @@ public class Item extends Entity {
 
     public double[] getProperties(){
         Sound.playSound(Sound.itemCollected);
-        return new double[]{speed, flames, bomb};
+        return new double[]{speed, flames, bomb, spaceShip};
     }
 
 }

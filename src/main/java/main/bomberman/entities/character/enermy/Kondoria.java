@@ -23,6 +23,7 @@ public class Kondoria extends Enemy{
             return;
 
         if(this.intersects(bomber)){
+            this.kill();
             bomber.kill();
         }
 
