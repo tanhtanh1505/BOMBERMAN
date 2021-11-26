@@ -20,6 +20,7 @@ abstract public class Enemy extends AnimatedCharacter {
         speed = 80;
         duration = 0.1;
         setScale(3);
+        bomber = BoardGame.getPlayer1();
     }
 
     @Override

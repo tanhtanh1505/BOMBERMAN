@@ -80,6 +80,11 @@ public abstract class Entity {
         Rectangle2D rectangle2D = new Rectangle2D(x, y, w, h);
         return this.getBoundary().intersects(rectangle2D);
     }
+
+    public boolean intersects(Rectangle2D r){
+        return r.intersects(this.getBoundary());
+    }
+
     public void render(GraphicsContext gc) {
         gc.drawImage(img, positionX, positionY);
     }

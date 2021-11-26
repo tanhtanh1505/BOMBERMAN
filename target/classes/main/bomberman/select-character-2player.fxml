@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="720.0" prefWidth="1344.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.bomberman.gui.SelectCharacter2Player">
+   <children>
+      <CheckBox fx:id="normalMode" layoutX="277.0" layoutY="164.0" mnemonicParsing="false" onAction="#selectNormalMode" prefHeight="153.0" prefWidth="207.0" text="normal mode" />
+      <CheckBox fx:id="specialMode" layoutX="782.0" layoutY="164.0" mnemonicParsing="false" onAction="#selectSpecialMode" prefHeight="153.0" prefWidth="207.0" text="special mode" />
+      <CheckBox fx:id="char1P1" layoutX="165.0" layoutY="413.0" mnemonicParsing="false" onAction="#selectChar1P1" prefHeight="24.0" prefWidth="99.0" text="char1 p1" />
+      <CheckBox fx:id="char2P1" layoutX="309.0" layoutY="415.0" mnemonicParsing="false" onAction="#selectChar2P1" text="char2 p1" />
+      <CheckBox fx:id="char3P1" layoutX="459.0" layoutY="415.0" mnemonicParsing="false" onAction="#selectChar3P1" text="char3 p1" />
+      <CheckBox fx:id="char1P2" layoutX="756.0" layoutY="415.0" mnemonicParsing="false" onAction="#selectChar1P2" text="char1 p2" />
+      <CheckBox fx:id="char2P2" layoutX="912.0" layoutY="415.0" mnemonicParsing="false" onAction="#selectChar2P2" text="char2 p2" />
+      <CheckBox fx:id="char3P2" layoutX="1055.0" layoutY="415.0" mnemonicParsing="false" onAction="#selectChar3P2" text="char3 p2" />
+      <Button layoutX="626.0" layoutY="607.0" mnemonicParsing="false" onAction="#continueBtn" text="Continue" />
+   </children>
+</AnchorPane>

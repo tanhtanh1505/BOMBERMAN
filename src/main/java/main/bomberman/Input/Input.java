@@ -9,11 +9,16 @@ import java.util.Stack;
 public class Input {
     private static Scene theScene;
     private static Stack<String> listInput = new Stack<>();
-    public Input(){
+    private int no = 1;
+    private static int mode = 1;
+    public Input(int no){
+        this.no = no;
     }
 
-    public static void setScene(Scene scene){
+
+    public static void setScene(Scene scene, int md){
         theScene = scene;
+        mode = md;
         listInput.clear();
         theScene.setOnKeyPressed(
                 new EventHandler<javafx.scene.input.KeyEvent>() {
@@ -43,29 +48,66 @@ public class Input {
     }
 
     public boolean right(){
-        if(listInput.size() < 1)
+        if (listInput.size() < 1)
             return false;
-        return listInput.peek().equals("RIGHT"); //input.contains("RIGHT") || input.contains("D");
+        if(mode == 1){
+            return listInput.peek().equals("RIGHT");
+        }
+        else {
+            if (no == 1) {
+                return listInput.contains("D");
+            } else {
+                //return listInput.peek().equals("RIGHT");
+                return listInput.contains("RIGHT");
+            }
+        }
     }
     public boolean left(){
         if(listInput.size() < 1)
             return false;
-        return listInput.peek().equals("LEFT"); //input.contains("LEFT") || input.contains("A");
+        if(mode == 1) {
+            return listInput.peek().equals("LEFT");
+        }
+        else{
+            if (no == 1) {
+                return listInput.contains("A");
+            } else
+                return listInput.contains("LEFT");
+        }
     }
     public boolean up(){
         if(listInput.size() < 1)
             return false;
-        return listInput.peek().equals("UP"); //input.contains("UP") || input.contains("W");
+        if(mode == 1){
+            return listInput.peek().equals("UP");
+        }
+        else {
+            if (no == 1) {
+                return listInput.contains("W");
+            } else
+                return listInput.contains("UP");
+        }
     }
     public boolean down(){
         if(listInput.size() < 1)
             return false;
-        return listInput.peek().equals("DOWN"); //input.contains("DOWN") || input.contains("S");
+        if(mode == 1){
+            return listInput.peek().equals("DOWN");
+        }
+        else {
+            if (no == 1) {
+                return listInput.contains("S");
+            } else
+                return listInput.contains("DOWN");
+        }
     }
     public boolean placeBomb(){
         if(listInput.size() < 1)
             return false;
-        return listInput.peek().equals("SPACE"); //input.contains("SPACE") || input.contains("ENTER");
+        if(no == 1)
+            return listInput.peek().equals("SPACE"); //input.contains("SPACE") || input.contains("ENTER");
+        else
+            return listInput.peek().equals("ENTER");
     }
 
     public static boolean quit(){

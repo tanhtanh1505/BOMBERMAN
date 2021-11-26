@@ -18,7 +18,7 @@ public class Properties{
     private Image avatar;
     private final Image gameOver;
     private Bomber bomber;
-    private static String name;
+    private static String name = "xxx";
     private int score;
     private int count = 0;
 

@@ -1,7 +1,6 @@
 package main.bomberman.level;
 
 import main.bomberman.entities.Entity;
-import main.bomberman.entities.character.Bomber;
 import main.bomberman.entities.character.enermy.*;
 import main.bomberman.entities.tile.Brick;
 import main.bomberman.entities.tile.Grass;
@@ -22,7 +21,7 @@ public class LoadLevel {
 
     }
 
-    public static void load(int level, Bomber bomber) {
+    public static void load(int level) {
         String path = ".\\res\\levels\\Level"+level+".txt";
         try{
             File file = new File(path);
@@ -44,7 +43,7 @@ public class LoadLevel {
             }
             reader.close();
 
-            setMap(bomber);
+            setMap();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -66,7 +65,7 @@ public class LoadLevel {
         return _height;
     }
 
-    private static void setMap(Bomber bomber){
+    private static void setMap(){
         for (int i = 0; i < _height; i++) {
             for (int j = 0; j < _width; j++){
                 Grass grass = new Grass();
@@ -103,6 +102,11 @@ public class LoadLevel {
                         spaceShip.setPosition(j*spaceShip.getWidth(), i*spaceShip.getHeight());
                         map.add(spaceShip);
                         break;
+                    case 'g':
+                        Brick gloves = new Brick("gloves");
+                        gloves.setPosition(j*gloves.getWidth(), i*gloves.getHeight());
+                        map.add(gloves);
+                        break;
                     case 'x':
                         Brick portal = new Brick("portal");
                         portal.setPosition(j*portal.getWidth(), i*portal.getHeight());
@@ -110,31 +114,31 @@ public class LoadLevel {
                         break;
                     case '1':
                         map.add(grass);
-                        Balloon balloon = new Balloon(bomber);
+                        Balloon balloon = new Balloon();
                         balloon.setPosition(j*balloon.getWidth(), i*balloon.getHeight());
                         listEnemy.add(balloon);
                         break;
                     case '2':
                         map.add(grass);
-                        Oneal oneal = new Oneal(bomber);
+                        Oneal oneal = new Oneal();
                         oneal.setPosition(j*oneal.getWidth(), i*oneal.getHeight());
                         listEnemy.add(oneal);
                         break;
                     case '3':
                         map.add(grass);
-                        Doll doll = new Doll(bomber);
+                        Doll doll = new Doll();
                         doll.setPosition(j*doll.getWidth(), i*doll.getHeight());
                         listEnemy.add(doll);
                         break;
                     case '4':
                         map.add(grass);
-                        Kondoria kondoria = new Kondoria(bomber);
+                        Kondoria kondoria = new Kondoria();
                         kondoria.setPosition(j*kondoria.getWidth(), i*kondoria.getHeight());
                         listEnemy.add(kondoria);
                         break;
                     case '5':
                         map.add(grass);
-                        Minvo minvo = new Minvo(bomber);
+                        Minvo minvo = new Minvo();
                         minvo.setPosition(j*minvo.getWidth(), i*minvo.getHeight());
                         listEnemy.add(minvo);
                         break;

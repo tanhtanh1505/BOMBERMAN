@@ -1,14 +1,12 @@
 package main.bomberman.entities.character.enermy;
 
-import main.bomberman.entities.character.Bomber;
 import main.bomberman.entities.character.enermy.ai.AIHigh;
 
 import java.util.Random;
 
 public class Minvo extends Enemy{
-    public Minvo(Bomber b){
-        bomber = b;
-        brain = new AIHigh(b, this);
+    public Minvo(){
+        brain = new AIHigh(bomber, this);
 
         setFrame("sprites\\minvo_left", "sprites\\minvo_left",
                 "sprites\\minvo_right", "sprites\\minvo_right", 3);

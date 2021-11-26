@@ -65,13 +65,9 @@ abstract public class AnimatedImage extends Entity {
             duoi_trai instanceof Wall || duoi_phai instanceof Wall){
             return false;
         }
-        if((tren_trai instanceof Brick && !((Brick) tren_trai).isDestroyed())||
-                (tren_phai instanceof Brick && !((Brick) tren_phai).isDestroyed())||
-                (duoi_trai instanceof Brick && !((Brick) duoi_trai).isDestroyed())||
-                (duoi_phai instanceof Brick && !((Brick) duoi_phai).isDestroyed())){
-            return false;
-        }
-
-        return true;
+        return (!(tren_trai instanceof Brick) || ((Brick) tren_trai).isDestroyed()) &&
+                (!(tren_phai instanceof Brick) || ((Brick) tren_phai).isDestroyed()) &&
+                (!(duoi_trai instanceof Brick) || ((Brick) duoi_trai).isDestroyed()) &&
+                (!(duoi_phai instanceof Brick) || ((Brick) duoi_phai).isDestroyed());
     }
 }

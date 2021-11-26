@@ -38,28 +38,33 @@
             <Image url="@../Image/png-transparent-super-bomberman-r-bomberman-blast-nintendo-switch-video-game-others-game-balloon-nintendo-removebg-preview.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="128.0" fitWidth="314.0" layoutX="259.0" layoutY="356.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="128.0" fitWidth="314.0" layoutX="259.0" layoutY="346.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Image/UI___UIX_elements_for_videogames.png-removebg-preview.png" />
          </image></ImageView>
-      <ImageView fitHeight="112.0" fitWidth="314.0" layoutX="259.0" layoutY="469.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="112.0" fitWidth="314.0" layoutX="259.0" layoutY="447.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Image/UI___UIX_elements_for_videogames.png-removebg-preview.png" />
          </image></ImageView>
-      <ImageView fitHeight="112.0" fitWidth="314.0" layoutX="259.0" layoutY="572.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="112.0" fitWidth="314.0" layoutX="259.0" layoutY="612.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Image/UI___UIX_elements_for_videogames.png-removebg-preview.png" />
          </image>
       </ImageView>
-      <Button layoutX="290.0" layoutY="380.0" mnemonicParsing="false" onAction="#start" prefHeight="54.0" prefWidth="250.0" text="Start">
+      <ImageView fitHeight="112.0" fitWidth="314.0" layoutX="259.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Image/UI___UIX_elements_for_videogames.png-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="290.0" layoutY="370.0" mnemonicParsing="false" onAction="#start" prefHeight="54.0" prefWidth="250.0" text="Start">
          <font>
             <Font name="Algerian" size="28.0" />
          </font></Button>
-      <Button layoutX="289.0" layoutY="493.0" mnemonicParsing="false" onAction="#viewScore" prefHeight="54.0" prefWidth="251.0" text="Hight Score">
+      <Button layoutX="289.0" layoutY="471.0" mnemonicParsing="false" onAction="#viewScore" prefHeight="54.0" prefWidth="251.0" text="Hight Score">
          <font>
             <Font name="Algerian" size="25.0" />
          </font></Button>
-      <Button layoutX="289.0" layoutY="596.0" mnemonicParsing="false" onAction="#exit" prefHeight="54.0" prefWidth="251.0" text="Exit">
+      <Button layoutX="289.0" layoutY="636.0" mnemonicParsing="false" onAction="#exit" prefHeight="54.0" prefWidth="251.0" text="Exit">
          <font>
             <Font name="Algerian" size="25.0" />
          </font></Button>
@@ -79,6 +84,9 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Button layoutX="661.0" layoutY="493.0" mnemonicParsing="false" onAction="#introBtn" prefHeight="54.0" prefWidth="225.0" text="Intro" />
+      <Button layoutX="291.0" layoutY="553.0" mnemonicParsing="false" onAction="#introBtn" prefHeight="54.0" prefWidth="251.0" text="Intro">
+         <font>
+            <Font name="Algerian" size="25.0" />
+         </font></Button>
    </children>
 </AnchorPane>

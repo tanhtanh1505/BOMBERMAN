@@ -145,4 +145,8 @@ abstract public class AnimatedCharacter extends Entity {
     public double getSpeed(){
         return speed;
     }
+
+    public void setSpeed(double s){
+        speed = s;
+    }
 }

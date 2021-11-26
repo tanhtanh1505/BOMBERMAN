@@ -25,7 +25,7 @@ public class FirstViewController implements Initializable {
         try {
             Sound.playSound(Sound.placeBomb);
             Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            FXMLLoader fxmlLoader = new FXMLLoader(BombermanGame.class.getResource("get-name.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(BombermanGame.class.getResource("select-number-player.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             stage.setScene(scene);
         } catch (IOException e) {

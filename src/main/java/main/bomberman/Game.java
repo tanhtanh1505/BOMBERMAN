@@ -22,8 +22,9 @@ public class Game {
     private final int WIDTH = 1344;
     private final int HEIGHT = 720;
     private Stage stage;
+    private int mode = 1;
 
-    public Game(Stage stage, String namePlayer, int selectCharacter){
+    public Game(Stage stage, String namePlayer, int selectCharacter, int mode){
         this.stage = stage;
         Group root = new Group();
         Scene theScene = new Scene(root, WIDTH, HEIGHT, Color.GRAY);
@@ -32,10 +33,10 @@ public class Game {
         root.getChildren().add(canvas);
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        Input.setScene(theScene);
+        Input.setScene(theScene, 1);
         Properties.setName(namePlayer);
 
-        BoardGame boardGame = new BoardGame(selectCharacter);
+        BoardGame boardGame = new BoardGame(selectCharacter, mode);
 
         Timeline gameLoop = new Timeline();
         gameLoop.setCycleCount( Timeline.INDEFINITE );
@@ -56,7 +57,7 @@ public class Game {
                         boardGame.update(elapsedTime);
 
                         // render
-                        //gc.clearRect(0, 0, WIDTH,HEIGHT);
+                        gc.clearRect(0, 0, WIDTH,HEIGHT);
                         boardGame.render(gc, t);
 
                         if(BoardGame.endGame() && Input.quit()){
@@ -71,8 +72,51 @@ public class Game {
         stage.setScene(theScene);
     }
 
-    public void start(){
+    public Game(Stage stage, int mode, int characterPlayer1, int characterPlayer2){
+        this.stage = stage;
+        Group root = new Group();
+        Scene theScene = new Scene(root, WIDTH, HEIGHT, Color.GRAY);
 
+        Canvas canvas = new Canvas(WIDTH, HEIGHT);
+        root.getChildren().add(canvas);
+
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        Input.setScene(theScene, 2);
+
+        BoardGame boardGame = new BoardGame(mode, characterPlayer1, characterPlayer2);
+
+        Timeline gameLoop = new Timeline();
+        gameLoop.setCycleCount( Timeline.INDEFINITE );
+        final long timeStart = System.currentTimeMillis();
+        final long[] lastNanoTime = {System.nanoTime()};
+
+        KeyFrame kf = new KeyFrame(
+                Duration.seconds(0.017),                // 60 FPS
+                new EventHandler<ActionEvent>()
+                {
+                    public void handle(ActionEvent ae)
+                    {
+                        double t = (System.currentTimeMillis() - timeStart) / 1000.0;
+
+                        double elapsedTime = (System.nanoTime() - lastNanoTime[0]) / 1000000000.0;
+                        lastNanoTime[0] = System.nanoTime();
+
+                        boardGame.update(elapsedTime);
+
+                        // render
+                        gc.clearRect(0, 0, WIDTH,HEIGHT);
+                        boardGame.render(gc, t);
+
+                        if(BoardGame.endGame() && Input.quit()){
+                            gameLoop.stop();
+                            switchToMenu();
+                        }
+                    }
+                });
+
+        gameLoop.getKeyFrames().add(kf);
+        gameLoop.play();
+        stage.setScene(theScene);
     }
 
     private void switchToMenu(){

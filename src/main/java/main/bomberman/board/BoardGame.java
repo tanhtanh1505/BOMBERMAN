@@ -18,27 +18,41 @@ public class BoardGame {
     private static int height;
     private static ArrayList<Entity> map = new ArrayList<>();
     private static ArrayList<Enemy> list_enemy = new ArrayList<>();
-    private static Bomber player;
+    private static Bomber player1;
+    private static Bomber player2;
     private static ArrayList<Message> listMessage = new ArrayList<>();
     private static Properties properties;
     private static boolean paused;
     private static boolean gameOver;
-    private static int selectChar;
+    private static int selectCharP1;
+    private static int selectCharP2;
+    private static int mode;
+    private static int numberPlayer;
 
-    public BoardGame(int selectCharacter){
+    public BoardGame(int selectCharacter, int md){
         map.clear();
         list_enemy.clear();
 
-        selectChar = selectCharacter;
-        player = new Bomber(selectCharacter);
-        LoadLevel.load(1, player);
+        numberPlayer = 1;
+        mode = md;
+        selectCharP1 = selectCharacter;
+        player1 = new Bomber(selectCharacter, 1);
+        LoadLevel.load(1);
         width = LoadLevel.get_width();
         height = LoadLevel.get_height();
         map = LoadLevel.getMap();
         list_enemy = LoadLevel.getListEnemy();
-        properties = new Properties(player);
+        properties = new Properties(player1);
         paused = false;
         gameOver = false;
+    }
+
+    public BoardGame(int md, int selectCharacterP1, int selectCharacterP2){
+        new BoardGame(selectCharacterP1, md);
+        numberPlayer = 2;
+        selectCharP2 = selectCharacterP2;
+        player2 = new Bomber(selectCharacterP2, 2);
+        player2.setPosition(92, 40);
     }
 
     public void update(double elapsedTime){
@@ -46,7 +60,9 @@ public class BoardGame {
             return;
         }
 
-        player.update(elapsedTime);
+        player1.update(elapsedTime);
+        if(player2 != null)
+            player2.update(elapsedTime);
 
         for(int i = 0; i < list_enemy.size(); i++){
             list_enemy.get(i).update(elapsedTime);
@@ -67,7 +83,9 @@ public class BoardGame {
                 e.render(gc);
         }
 
-        player.render(gc, time);
+        player1.render(gc, time);
+        if(player2 != null)
+            player2.render(gc, time);
 
         for(Enemy enemy : list_enemy){
             enemy.render(gc, time);
@@ -125,13 +143,15 @@ public class BoardGame {
         map.clear();
         list_enemy.clear();
 
-        player = new Bomber(selectChar);
-        LoadLevel.load(LoadLevel.get_level() + 1, player);
-        width = LoadLevel.get_width();
-        height = LoadLevel.get_height();
+        player1 = new Bomber(selectCharP1, 1);
+        properties.reset(player1);
+        if(numberPlayer == 2)
+            player2 = new Bomber(selectCharP2, 2);
+
+        LoadLevel.load(LoadLevel.get_level() + 1);
         map = LoadLevel.getMap();
         list_enemy = LoadLevel.getListEnemy();
-        properties.reset(player);
+
         paused = false;
         gameOver = false;
     }
@@ -151,5 +171,17 @@ public class BoardGame {
 
     public static boolean endGame(){
         return gameOver;
+    }
+
+    public static int getMode(){
+        return mode;
+    }
+
+    public static Bomber getPlayer1(){
+        return player1;
+    }
+
+    public static Bomber getPlayer2(){
+        return player2;
     }
 }

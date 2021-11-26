@@ -16,22 +16,27 @@ import java.util.ArrayList;
 
 public class Bomber extends AnimatedCharacter {
     private ArrayList<Bomb> listBomb = new ArrayList<>();
-    private Input input = new Input();
+    private Input input;
     private int timeToPlaceNextBomb = 0;
     private int numberBomb = 2;
     private int powerFlames = 0;
     private int selectCharacter = 1; //0: mac dinh
-    private boolean healNumSpaceShip = false;
+    private boolean hasSpaceShip = false;
+    private boolean hasGloves = false;
+    private int noPlayer = 1;
 
-    public Bomber(int select) {
+    public Bomber(int select, int no) {
         setScale(3);
+        noPlayer = no;
+        input = new Input(no);
         this.selectCharacter = select;
         framesMove = Sprite.getListImage("sprites\\jetter" + selectCharacter +".png", 4, 3, scale);
-//        setFrame("sprites\\player_down_", "sprites\\player_left_",
-//        "sprites\\player_right_", "sprites\\player_up_", 3);
         setAnimateDead("sprites\\player_dead", 3);
         setPosition(44, 40);
         alive = true;
+        if(BoardGame.getMode() == 2){
+            hasGloves = true;
+        }
     }
 
     public void readInput(){
@@ -105,7 +110,7 @@ public class Bomber extends AnimatedCharacter {
                 else return false;
             }
             else if(brick.hasItem()){
-                brick.setCollectedItem(powerUp(brick.getItem().getProperties()));
+                brick.setCollectedItem(brick.getItem().getProperties(this));
             }
         }
         if(tren_phai instanceof Brick){
@@ -122,7 +127,7 @@ public class Bomber extends AnimatedCharacter {
                 else return false;
             }
             else if(brick.hasItem()){
-                brick.setCollectedItem(powerUp(brick.getItem().getProperties()));
+                brick.setCollectedItem(brick.getItem().getProperties(this));
             }
         }
         if(duoi_trai instanceof Brick){
@@ -139,7 +144,7 @@ public class Bomber extends AnimatedCharacter {
                 else return false;
             }
             else if(brick.hasItem()){
-                brick.setCollectedItem(powerUp(brick.getItem().getProperties()));
+                brick.setCollectedItem(brick.getItem().getProperties(this));
             }
         }
         if(duoi_phai instanceof Brick){
@@ -156,22 +161,10 @@ public class Bomber extends AnimatedCharacter {
                 else return false;
             }
             else if(brick.hasItem()){
-                brick.setCollectedItem(powerUp(brick.getItem().getProperties()));
+                brick.setCollectedItem(brick.getItem().getProperties(this));
             }
         }
 
-        return true;
-    }
-
-    public boolean powerUp(double[] properties){
-        //0: speed, 1:flame, 2:bomb 3:spaceShip
-        this.speed *= properties[0];
-        this.powerFlames += properties[1];
-        this.numberBomb += properties[2];
-        if(properties[3] > 0) {
-            this.healNumSpaceShip = true;
-            framesMove = Sprite.getListImage("sprites\\specialMode" + selectCharacter + ".png", 4, 2, scale);
-        }
         return true;
     }
 
@@ -208,11 +201,15 @@ public class Bomber extends AnimatedCharacter {
         return new Rectangle2D(positionX + width/5, positionY + height/5, width/2, height/2);
     }
 
+    public Rectangle2D getBoundaryImage(){
+        return new Rectangle2D(positionX, positionY, width, height);
+    }
+
     @Override
     public void kill(){
-        if(healNumSpaceShip){
+        if(hasSpaceShip){
             framesMove = Sprite.getListImage("sprites\\jetter" + selectCharacter +".png", 4, 3, scale);
-            healNumSpaceShip = false;
+            hasSpaceShip = false;
         }
         else {
             Sound.playSound(Sound.bomberDie);
@@ -223,5 +220,27 @@ public class Bomber extends AnimatedCharacter {
 
     public int getSelectCharacter(){
         return selectCharacter;
+    }
+
+    public void upPowerFlames(int n){
+        powerFlames += n;
+    }
+
+    public void upNumBomb(int n){
+        numberBomb += n;
+    }
+
+    public void setHasSpaceShip(boolean ok){
+        hasSpaceShip = ok;
+        if(ok)
+            framesMove = Sprite.getListImage("sprites\\specialMode" + selectCharacter + ".png", 4, 2, scale);
+    }
+
+    public boolean hasGloves(){
+        return hasGloves;
+    }
+
+    public void setHasGloves(boolean ok){
+        hasGloves = ok;
     }
 }

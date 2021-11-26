@@ -1,6 +1,5 @@
 package main.bomberman.entities.character.enermy;
 
-import main.bomberman.entities.character.Bomber;
 import main.bomberman.entities.character.enermy.ai.AIHigh;
 
 import java.util.Random;
@@ -8,9 +7,8 @@ import java.util.Random;
 public class Kondoria extends Enemy{
     private boolean isTheFirstStep = true;
 
-    public Kondoria(Bomber b){
-        bomber = b;
-        brain = new AIHigh(b, this);
+    public Kondoria(){
+        brain = new AIHigh(bomber, this);
 
         setFrame("sprites\\kondoria_left", "sprites\\kondoria_left",
                 "sprites\\kondoria_right", "sprites\\kondoria_right", 3);
