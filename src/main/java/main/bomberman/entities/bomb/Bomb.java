@@ -54,7 +54,7 @@ public class Bomb extends AnimatedImage {
                 else{
                      setVelocity(0, 4);
                 }
-                if(BoardGame.getMode() == 1)
+                if(BoardGame.getMode() != 2)
                     bomber.setHasGloves(false);
                 move = true;
             }

@@ -30,7 +30,7 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <Button layoutX="559.0" layoutY="520.0" mnemonicParsing="false" onAction="#selectSecond" prefHeight="143.0" prefWidth="126.0">
+      <Button layoutX="594.0" layoutY="520.0" mnemonicParsing="false" onAction="#selectSecond" prefHeight="143.0" prefWidth="126.0">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
@@ -41,7 +41,7 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <Button layoutX="835.0" layoutY="524.0" mnemonicParsing="false" onAction="#selectThird" prefHeight="135.0" prefWidth="126.0">
+      <Button layoutX="873.0" layoutY="524.0" mnemonicParsing="false" onAction="#selectThird" prefHeight="135.0" prefWidth="126.0">
          <font>
             <Font name="System Bold" size="19.0" />
          </font>
@@ -77,7 +77,29 @@
             <Image url="@../Image/d6zdunl-f2d82c86-6c13-43aa-9c0a-90de97689b96.gif" />
          </image>
       </ImageView>
-      <CheckBox fx:id="normalMode" layoutX="300.0" layoutY="276.0" mnemonicParsing="false" onAction="#selectNormalMode" prefHeight="168.0" prefWidth="271.0" text="Normal" textFill="RED" />
-      <CheckBox fx:id="specialMode" layoutX="700.0" layoutY="276.0" mnemonicParsing="false" onAction="#selectSpecialMode" prefHeight="168.0" prefWidth="271.0" text="Special" textFill="RED" />
+      <CheckBox fx:id="normalMode" layoutX="181.0" layoutY="324.0" mnemonicParsing="false" onAction="#selectNormalMode" prefHeight="121.0" prefWidth="228.0" textFill="RED">
+         <graphic>
+            <ImageView fitHeight="130.0" fitWidth="200.0" pickOnBounds="true">
+               <image>
+                  <Image url="@../Image/normalMode.png" />
+               </image>
+            </ImageView>
+         </graphic></CheckBox>
+      <CheckBox fx:id="specialMode" layoutX="543.0" layoutY="325.0" mnemonicParsing="false" onAction="#selectSpecialMode" prefHeight="127.0" prefWidth="228.0" textFill="RED">
+         <graphic>
+            <ImageView fitHeight="130.0" fitWidth="200.0" pickOnBounds="true">
+               <image>
+                  <Image url="@../Image/gloves.png" />
+               </image>
+            </ImageView>
+         </graphic></CheckBox>
+      <CheckBox fx:id="AIMode" layoutX="865.0" layoutY="325.0" mnemonicParsing="false" onAction="#selectAIMode" prefHeight="127.0" prefWidth="220.0" textFill="RED">
+         <graphic>
+            <ImageView fitHeight="130.0" fitWidth="200.0" pickOnBounds="true">
+               <image>
+                  <Image url="@../Image/aimode.png" />
+               </image>
+            </ImageView>
+         </graphic></CheckBox>
    </children>
 </AnchorPane>

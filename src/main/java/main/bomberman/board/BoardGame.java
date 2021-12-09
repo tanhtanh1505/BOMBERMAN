@@ -5,6 +5,7 @@ import main.bomberman.entities.Entity;
 import main.bomberman.entities.Message;
 import main.bomberman.entities.character.Bomber;
 import main.bomberman.entities.character.enermy.Enemy;
+import main.bomberman.entities.character.enermy.Jetter;
 import main.bomberman.entities.tile.Brick;
 import main.bomberman.entities.tile.Wall;
 import main.bomberman.graphics.Properties;
@@ -20,6 +21,7 @@ public class BoardGame {
     private static ArrayList<Enemy> list_enemy = new ArrayList<>();
     private static Bomber player1;
     private static Bomber player2;
+    private static Jetter jetter;
     private static ArrayList<Message> listMessage = new ArrayList<>();
     private static Properties properties;
     private static boolean paused;
@@ -37,6 +39,13 @@ public class BoardGame {
         mode = md;
         selectCharP1 = selectCharacter;
         player1 = new Bomber(selectCharacter, 1);
+        player2 = null;
+        if(md != 3){
+            jetter = null;
+        }
+        else {
+            jetter = new Jetter();
+        }
         LoadLevel.load(1);
         width = LoadLevel.get_width();
         height = LoadLevel.get_height();
@@ -63,6 +72,8 @@ public class BoardGame {
         player1.update(elapsedTime);
         if(player2 != null)
             player2.update(elapsedTime);
+        else if(jetter != null)
+            jetter.update(elapsedTime);
 
         for(int i = 0; i < list_enemy.size(); i++){
             list_enemy.get(i).update(elapsedTime);
@@ -86,6 +97,8 @@ public class BoardGame {
         player1.render(gc, time);
         if(player2 != null)
             player2.render(gc, time);
+        else if(jetter != null)
+            jetter.render(gc, time);
 
         for(Enemy enemy : list_enemy){
             enemy.render(gc, time);
@@ -147,7 +160,9 @@ public class BoardGame {
         properties.reset(player1);
         if(numberPlayer == 2)
             player2 = new Bomber(selectCharP2, 2);
-
+        if(mode == 3){
+            jetter = new Jetter();
+        }
         LoadLevel.load(LoadLevel.get_level() + 1);
         map = LoadLevel.getMap();
         list_enemy = LoadLevel.getListEnemy();

@@ -15,15 +15,15 @@ import main.bomberman.sound.Sound;
 import java.util.ArrayList;
 
 public class Bomber extends AnimatedCharacter {
-    private ArrayList<Bomb> listBomb = new ArrayList<>();
-    private Input input;
-    private int timeToPlaceNextBomb = 0;
-    private int numberBomb = 2;
-    private int powerFlames = 0;
-    private int selectCharacter = 1; //0: mac dinh
-    private boolean hasSpaceShip = false;
-    private boolean hasGloves = false;
-    private int noPlayer = 1;
+    protected ArrayList<Bomb> listBomb = new ArrayList<>();
+    protected Input input;
+    protected int timeToPlaceNextBomb = 0;
+    protected int numberBomb = 2;
+    protected int powerFlames = 0;
+    protected int selectCharacter = 1; //0: mac dinh
+    protected boolean hasSpaceShip = false;
+    protected boolean hasGloves = false;
+    protected int noPlayer = 1;
 
     public Bomber(int select, int no) {
         setScale(3);

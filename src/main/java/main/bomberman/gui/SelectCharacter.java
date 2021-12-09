@@ -10,6 +10,8 @@ import main.bomberman.sound.Sound;
 public class SelectCharacter {
     public CheckBox normalMode;
     public CheckBox specialMode;
+    public CheckBox AIMode;
+
     private int mode = 1;
 
     private String namePlayer;
@@ -40,10 +42,18 @@ public class SelectCharacter {
     public void selectNormalMode(ActionEvent event) {
         mode = 1;
         specialMode.setSelected(false);
+        AIMode.setSelected(false);
     }
 
     public void selectSpecialMode(ActionEvent event) {
         mode = 2;
+        normalMode.setSelected(false);
+        AIMode.setSelected(false);
+    }
+
+    public void selectAIMode(ActionEvent event) {
+        mode = 3;
+        specialMode.setSelected(false);
         normalMode.setSelected(false);
     }
 }

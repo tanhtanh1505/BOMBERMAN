@@ -13,6 +13,7 @@ import java.util.Scanner;
 public class LoadLevel {
     private static int _width, _height, _level = 1;
     private static char[][] _map;
+    private static int[][] firstMap;
 
     private static ArrayList<Entity> map = new ArrayList<>();
     private static ArrayList<Enemy> listEnemy = new ArrayList<>();
@@ -31,15 +32,18 @@ public class LoadLevel {
             _height = reader.nextInt();
             _width = reader.nextInt();
             reader.nextLine();
-            System.out.println(_level + " " + _height + " " + _width);
+            //System.out.println(_level + " " + _height + " " + _width);
             _map = new char[_height][_width];
+            firstMap = new int[_height][_width];
+
             for (int i = 0; i < _height; i++) {
                 String line = reader.nextLine();
                 for (int j = 0; j < _width; j++){
                     _map[i][j] = line.charAt(j);
-                    System.out.print(_map[i][j]);
+                    firstMap[i][j] = (line.charAt(j) == '#')?0:1;
+                    //System.out.print(_map[i][j]);
                 }
-                System.out.println("");
+                //System.out.println("");
             }
             reader.close();
 
@@ -150,6 +154,9 @@ public class LoadLevel {
         }
     }
 
+    public static int[][] getFirstMap(){
+        return firstMap;
+    }
 
     public static ArrayList<Entity> getMap(){
         return map;

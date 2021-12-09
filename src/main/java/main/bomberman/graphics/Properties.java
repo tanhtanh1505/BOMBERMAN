@@ -65,9 +65,9 @@ public class Properties{
         gc.fillText(name, positionX + (240 - name.length() * 18) / 2, 333);
         gc.setFont(new Font("Algerian", 30));
         gc.fillText("SCORE: " + score, positionX + 50, 420);
-        gc.fillText(":  " + bomber.getNumberBomb(), positionX + 110, 493);
-        gc.fillText(":  " + (bomber.getPowerFlames()*2 + 3), positionX + 110, 550);
-        gc.fillText(":  " + (int)bomber.getSpeed(), positionX + 110, 607);
+        gc.fillText(":  " + bomber.getNumberBomb(), positionX + 110, 486);
+        gc.fillText(":  " + (bomber.getPowerFlames()*2 + 3), positionX + 110, 543);
+        gc.fillText(":  " + (int)bomber.getSpeed(), positionX + 110, 600);
         if(!BoardGame.endGame() && count++ > 30) {
             gc.setFont(new Font("Algerian", 20));
             gc.fillText("PRESS P TO PAUSE", positionX + 33, 675);

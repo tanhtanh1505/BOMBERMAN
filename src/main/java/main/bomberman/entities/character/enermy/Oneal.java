@@ -12,7 +12,7 @@ public class Oneal extends Enemy {
 
     @Override
     public void calcMove() {
+        speed = random.nextInt(2) + 2;
         super.calcMove();
-        speed = 80 + random.nextInt(80) ;
     }
 }

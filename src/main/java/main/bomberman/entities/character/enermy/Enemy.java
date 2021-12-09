@@ -10,14 +10,14 @@ import java.util.Random;
 
 abstract public class Enemy extends AnimatedCharacter {
     protected AI brain;
-    protected int MAX_STEPS = 50;
+    protected int MAX_STEPS = 96; //pass 6 grass then calc
     protected int steps = 0;
     protected Bomber bomber;
     protected Random random = new Random();
 
     public Enemy(){
         setStatusMove("LEFT");
-        speed = 80;
+        speed = 3;
         duration = 0.1;
         setScale(3);
         bomber = BoardGame.getPlayer1();
@@ -29,7 +29,6 @@ abstract public class Enemy extends AnimatedCharacter {
             return;
 
         if(this.intersects(bomber)){
-            System.out.println(1);
             this.kill();
             bomber.kill();
         }
@@ -38,10 +37,10 @@ abstract public class Enemy extends AnimatedCharacter {
             calcMove();
         }
 
-        if(canMove((int) (positionX + velocityX * time), (int)(positionY + velocityY * time))){
+        if(canMove((int) (positionX + velocityX), (int)(positionY + velocityY))){
             steps++;
-            positionX += velocityX * time;
-            positionY += velocityY * time;
+            positionX += velocityX;
+            positionY += velocityY;
         }
         else{
             calcMove();
